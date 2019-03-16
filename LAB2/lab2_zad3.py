@@ -107,3 +107,39 @@ start = time.time()
 breadth_first_search("Gdańsk", "Tczew")
 end = time.time()
 print(end - start)
+
+
+def deph_first_search(start_state, target_state):
+    id = 0
+    tree = Tree()
+    current_node = tree.create_node(start_state, id)
+    lifo_stack = []
+    lifo_stack.insert(0, current_node)
+
+    while id < 200000:
+        if len(lifo_stack) == 0:
+            tree.show()
+            print("failed to reach the target state")
+            return 1
+
+        current_node = lifo_stack[0]
+        if current_node.tag == target_state:
+            tree.show()
+            print("the target state " + str(current_node.tag) + " with id = " + str(current_node.identifier) +
+                  "has been reached!")
+            return 0
+
+        del (lifo_stack[0])
+        if not duplicate_node_path_check(tree, id):
+            for elem in reachable_states(current_node.tag):
+                id += 1
+                new_elem = tree.create_node(elem[0], id, parent=current_node.identifier)
+                lifo_stack.append(new_elem)
+                print("time limit exceeded")
+
+
+print('def deph_first_search')
+start = time.time()
+deph_first_search("Gdańsk", "Tczew")
+end = time.time()
+print(end - start)
