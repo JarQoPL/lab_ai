@@ -28,19 +28,18 @@ print()
 print(z.is_leaf())
 print()
 print(tree.paths_to_leaves())
-print(tree.parent('h'))
 
 
 def duplicate_node_path_check(tree, node):
 
     check_node = tree.get_node(node)
     current_node = check_node
-    while tree.parent(current_node.identifier) is not None:
+    while not current_node.is_root():
         current_node = tree.parent(current_node.identifier)
         if check_node.tag == current_node.tag:
             return True
     return False
 
 
-print(duplicate_node_path_check(tree, 'm'))
+print(duplicate_node_path_check(tree, 'h2'))
 
